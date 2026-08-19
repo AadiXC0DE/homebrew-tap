@@ -36,9 +36,12 @@ cask "graphe" do
 
   caveats <<~EOS
     Graphe is signed, but not notarized by Apple — there is no paid developer
-    account yet. Installing it this way is fine: Homebrew downloads without
-    marking the file as quarantined, so the app opens normally. Downloading the
-    same app in a browser does not, and macOS will ask you to allow it in System
-    Settings first.
+    account yet. Homebrew 5 and earlier installed it with no prompt, but
+    Homebrew 6 applies the quarantine attribute to cask installs, so on first
+    launch macOS may ask you to allow it. If it does: right-click the app in
+    Finder and choose Open, or use "Open Anyway" in System Settings → Privacy
+    & Security. It is the genuine binary from the GitHub release, not a broken
+    download — the prompt exists because Apple has not vetted a signed binary
+    from a free account. Notarization removes it for good.
   EOS
 end
