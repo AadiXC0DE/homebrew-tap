@@ -16,8 +16,6 @@ jobs:
       - uses: Homebrew/actions/setup-homebrew@master
       - name: Homebrew cask style rules
         run: brew tap homebrew/cask
-      - name: Tap the published repository
-        run: brew tap aadixc0de/tap https://github.com/AadiXC0DE/homebrew-tap.git
       - name: Homebrew style
         run: brew style --cask Casks/
       - name: Homebrew audit
