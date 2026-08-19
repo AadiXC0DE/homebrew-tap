@@ -1,0 +1,8 @@
+# Homebrew generates these when it resolves a tap; they are caches, not source.
+Caskroom/
+api/
+formula/
+bin/
+var/
+
+.DS_Store

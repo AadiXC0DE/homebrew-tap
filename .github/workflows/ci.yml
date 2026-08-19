@@ -1,0 +1,19 @@
+# Every push and pull request is checked against Homebrew's own rules before a
+# change is accepted. Nothing ships to a tap that fails style or audit.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  cask:
+    name: Cask style & audit
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Homebrew style
+        run: brew style --cask Casks/
+      - name: Homebrew audit
+        run: brew audit --cask graphe

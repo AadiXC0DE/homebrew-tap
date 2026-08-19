@@ -1,0 +1,44 @@
+# Maintained copy. Source of truth is the template in the app's repository:
+# AadiXC0DE/graphe/Casks/graphe.rb. Update the template and copy it here at each
+# release, filling in the current version and sha256 values.
+
+cask "graphe" do
+  arch arm: "arm64", intel: "x64"
+
+  version "0.1.0"
+  sha256 arm:   "4e70858c6da891ac3615689560e78989eadf4da802a7e5eda3da07a36d686385",
+         intel: "67eb4c7f7405058665b7a8fe2a6c6777801ce6a8661939d675fec618ddf6a3ed"
+
+  url "https://github.com/AadiXC0DE/graphe/releases/download/v#{version}/Graphe-#{version}-#{arch}.zip",
+      verified: "github.com/AadiXC0DE/graphe/"
+  name "Graphe"
+  desc "Agentic coding platform for the desktop"
+  homepage "https://github.com/AadiXC0DE/graphe"
+
+  # Graphe is pre-1.0 and its window is the entire product, so an old copy is a
+  # different product. Say so rather than letting people sit on the first build.
+  auto_updates false
+  depends_on macos: :monterey
+
+  app "Graphe.app"
+
+  # What Graphe leaves behind on this machine, so `brew uninstall --zap` really
+  # does remove it. Deliberately *not* listed: `~/.pi`, which holds the account
+  # the user connected and belongs to Pi rather than to us, and no project
+  # folder anywhere — those are the user's own work and nothing we install may
+  # ever remove them.
+  zap trash: [
+    "~/Library/Application Support/Graphe",
+    "~/Library/Caches/xyz.graphe",
+    "~/Library/Preferences/xyz.graphe.plist",
+    "~/Library/Saved Application State/xyz.graphe.savedState",
+  ]
+
+  caveats <<~EOS
+    Graphe is signed, but not notarized by Apple — there is no paid developer
+    account yet. Installing it this way is fine: Homebrew downloads without
+    marking the file as quarantined, so the app opens normally. Downloading the
+    same app in a browser does not, and macOS will ask you to allow it in System
+    Settings first.
+  EOS
+end
