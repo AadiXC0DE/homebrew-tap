@@ -13,7 +13,12 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: Homebrew/actions/setup-homebrew@master
+      - name: Homebrew cask style rules
+        run: brew tap homebrew/cask
+      - name: Link this repository as a tap
+        run: brew tap aadixc0de/tap "$(pwd)"
       - name: Homebrew style
         run: brew style --cask Casks/
       - name: Homebrew audit
-        run: brew audit --cask graphe
+        run: HOMEBREW_NO_REQUIRE_TAP_TRUST=1 brew audit --cask graphe
