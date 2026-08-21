@@ -5,20 +5,25 @@
 cask "graphe" do
   arch arm: "arm64", intel: "x64"
 
-  version "0.1.0"
-  sha256 arm:   "4e70858c6da891ac3615689560e78989eadf4da802a7e5eda3da07a36d686385",
-         intel: "67eb4c7f7405058665b7a8fe2a6c6777801ce6a8661939d675fec618ddf6a3ed"
+  version "0.3.0"
+  sha256 arm:   "bf49ad737bc97706e87536ec05999c84c6a0e40f9ef378379069b641f669a242",
+         intel: "c414d47259f11d49f85fcb4f9df880baad538bf331868a92c155ee551451223d"
 
   url "https://github.com/AadiXC0DE/graphe/releases/download/v#{version}/Graphe-#{version}-#{arch}.zip",
       verified: "github.com/AadiXC0DE/graphe/"
   name "Graphe"
-  desc "Agentic coding platform for the desktop"
+  desc "Gentle coding agent for designers"
   homepage "https://github.com/AadiXC0DE/graphe"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   # Graphe is pre-1.0 and its window is the entire product, so an old copy is a
   # different product. Say so rather than letting people sit on the first build.
   auto_updates false
-  depends_on macos: :monterey
+  depends_on macos: ">= :monterey"
 
   app "Graphe.app"
 
