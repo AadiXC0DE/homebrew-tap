@@ -5,9 +5,9 @@
 cask "graphe" do
   arch arm: "arm64", intel: "x64"
 
-  version "0.4.0"
-  sha256 arm:   "8323ca26d9cc39c81b6f6dbf88da21c4f66b4aadc729b010376c1a1e238b7687",
-         intel: "09002b327bb3c5fe0d03d043c4c049c1b98908c2525a2ae0a438f8667f7f9b3d"
+  version "0.4.1"
+  sha256 arm:   "f614f54b6229ee6ccc59186172235000e36bc701d8f806d130d385d342ba5545",
+         intel: "554e3fd81f48659171735d15ae8d812b478c92ccd3ecf441d4f7a61805da7930"
 
   url "https://github.com/AadiXC0DE/graphe/releases/download/v#{version}/Graphe-#{version}-#{arch}.zip",
       verified: "github.com/AadiXC0DE/graphe/"
