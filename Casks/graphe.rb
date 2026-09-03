@@ -1,16 +1,12 @@
-# Maintained copy. Source of truth is the template in the app's repository:
-# AadiXC0DE/graphe/Casks/graphe.rb. Update the template and copy it here at each
-# release, filling in the current version and sha256 values.
-
 cask "graphe" do
   # The zip, not the dmg. Homebrew can install from either, but a dmg has to be
   # mounted and unmounted for every install and upgrade, and the zip is the
   # smaller download of the two.
   arch arm: "arm64", intel: "x64"
 
-  version "0.9.0"
-  sha256 arm:   "f9ed1031c37c346320876cc2b650c96f3217048e1c179dd2e755f46710ebb010",
-         intel: "f8bab7417d27e6779ce37e83e6c902303ee6a610687efd9f6052101be5504a8a"
+  version "1.0.0"
+  sha256 arm:   "a7b76734dd4e334319d62d59db24ad81d68cf6a25e41e2bc8178170ca43dc847",
+         intel: "2cbbc0bbc67921d948d9b863f439b83f1505039ad1f3574312f0fc7c1565cf48"
 
   url "https://github.com/AadiXC0DE/graphe/releases/download/v#{version}/Graphe-#{version}-#{arch}.zip",
       verified: "github.com/AadiXC0DE/graphe/"
@@ -23,8 +19,8 @@ cask "graphe" do
     strategy :github_latest
   end
 
-  # Graphe is pre-1.0 and its window is the entire product, so an old copy is a
-  # different product. Say so rather than letting people sit on the first build.
+  # Graphe's window is the entire product, so an old copy is a different
+  # product. Say so rather than letting people sit on the build they installed.
   auto_updates false
   depends_on macos: :monterey
 
@@ -43,13 +39,13 @@ cask "graphe" do
   ]
 
   caveats <<~EOS
-    Graphe is signed, but not notarized by Apple — there is no paid developer
+    Graphe is signed, but not notarized by Apple: there is no paid developer
     account yet. Homebrew 5 and earlier installed it with no prompt, but
     Homebrew 6 applies the quarantine attribute to cask installs, so on first
     launch macOS may ask you to allow it. If it does: right-click the app in
-    Finder and choose Open, or use "Open Anyway" in System Settings → Privacy
+    Finder and choose Open, or use "Open Anyway" in System Settings, Privacy
     & Security. It is the genuine binary from the GitHub release, not a broken
-    download — the prompt exists because Apple has not vetted a signed binary
-    from a free account. Notarization removes it for good.
+    download. The prompt exists because Apple has not vetted a signed binary
+    from a free account, and notarization removes it for good.
   EOS
 end
