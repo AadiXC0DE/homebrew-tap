@@ -4,9 +4,9 @@ cask "graphe" do
   # smaller download of the two.
   arch arm: "arm64", intel: "x64"
 
-  version "1.0.1"
-  sha256 arm:   "795dc2358d315823c3e861da7388c55d7333d2ebf631b7b52c189a85dcb7e3bd",
-         intel: "3121020abcc68bff980c886a5016066d2ad8a4e2d00f13659f172363bbd6725d"
+  version "1.0.2"
+  sha256 arm:   "c75b61f9c2f1f3147ddfa4939ec1648cc073e358eb9cd0e82c67ef106a6c65cf",
+         intel: "0b9a0421e34f7a0b344451b83ab1135ad5ef87e099450bcc929ba85114347237"
 
   url "https://github.com/AadiXC0DE/graphe/releases/download/v#{version}/Graphe-#{version}-#{arch}.zip",
       verified: "github.com/AadiXC0DE/graphe/"
