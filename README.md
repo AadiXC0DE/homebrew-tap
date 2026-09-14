@@ -1,32 +1,33 @@
 # AadiXC0DE Homebrew tap
 
-A small [Homebrew](https://brew.sh) tap for the apps published under
-[AadiXC0DE](https://github.com/AadiXC0DE). It currently hosts one cask:
-
-- **[Graphe](https://github.com/AadiXC0DE/graphe)** — an agentic coding
-  platform for the desktop, built on
-  [pi](https://github.com/earendil-works/pi).
+Desktop apps published by AadiXC0DE.
 
 ## Install
 
+[Sift](https://usesift.xyz) — a keyboard-first Gmail client for macOS:
+
 ```sh
-brew tap AadiXC0DE/tap
-brew install --cask graphe
+brew install --cask aadixc0de/tap/sift
 ```
 
-## What this is for
+[Graphe](https://github.com/AadiXC0DE/graphe) — an agentic coding platform:
 
-Homebrew installs a cask without setting the macOS `com.apple.quarantine`
-attribute that browsers and mail set on downloaded files — which is what makes
-Graphe open with no Gatekeeper warning, despite being ad-hoc signed and not
-notarized.
+```sh
+brew install --cask aadixc0de/tap/graphe
+```
 
-## Keeping the cask in step with the app
+## First launch
 
-Each `Casks/*.rb` is copied from the release template kept in its app's own
-repository. For Graphe that is `AadiXC0DE/graphe/Casks/graphe.rb`, copied here
-at every release with the current `version` and both `sha256` values filled in.
-Prefer editing the template over this copy, so the two never drift apart.
+Homebrew verifies the download checksum and installs the app. It does not
+notarize an app or guarantee that macOS will skip Gatekeeper. Current Homebrew
+applies quarantine to cask installs, so unnotarized apps may show a warning.
+For Sift, follow the [first-launch guide](https://usesift.xyz/download#first-launch),
+including the fallback when Open Anyway is missing.
+
+## Maintaining releases
+
+Keep each cask in sync with its app repository's `Casks` directory. Pin the
+published version and exact verified artifact SHA-256; do not skip checksums.
 
 ## Licence
 
