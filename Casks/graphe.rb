@@ -4,9 +4,9 @@ cask "graphe" do
   # smaller download of the two.
   arch arm: "arm64", intel: "x64"
 
-  version "1.0.3"
-  sha256 arm:   "d90a265283b0f984e698778cbf87b76e2169d0b3f2b1b31ef22e514222548076",
-         intel: "7d9213a83cb61eee9c2f2ca76558845cddd866e6a7dbee95b4853245d17ef67b"
+  version "1.1.0"
+  sha256 arm:   "42ae78156aa98225a4b35eab702b586c5b9e4e0c248a71385ce1dd5eb6ac0dae",
+         intel: "96f0e8028e1c4edbac6806a85c6859c2115a564df7aa16fbfad2ba7424bee821"
 
   url "https://github.com/AadiXC0DE/graphe/releases/download/v#{version}/Graphe-#{version}-#{arch}.zip",
       verified: "github.com/AadiXC0DE/graphe/"
@@ -22,7 +22,7 @@ cask "graphe" do
   # Graphe's window is the entire product, so an old copy is a different
   # product. Say so rather than letting people sit on the build they installed.
   auto_updates false
-  depends_on macos: :monterey
+  depends_on macos: :ventura
 
   app "Graphe.app"
 
@@ -39,13 +39,8 @@ cask "graphe" do
   ]
 
   caveats <<~EOS
-    Graphe is signed, but not notarized by Apple: there is no paid developer
-    account yet. Homebrew 5 and earlier installed it with no prompt, but
-    Homebrew 6 applies the quarantine attribute to cask installs, so on first
-    launch macOS may ask you to allow it. If it does: right-click the app in
-    Finder and choose Open, or use "Open Anyway" in System Settings, Privacy
-    & Security. It is the genuine binary from the GitHub release, not a broken
-    download. The prompt exists because Apple has not vetted a signed binary
-    from a free account, and notarization removes it for good.
+    Graphe is ad-hoc signed, not notarized by Apple. On first launch macOS
+    may require approval through "Open Anyway" in System Settings,
+    Privacy & Security. This cask does not bypass Gatekeeper.
   EOS
 end
