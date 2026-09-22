@@ -12,8 +12,10 @@ class Rune < Formula
   version "0.1.0"
   license "Apache-2.0"
 
+  # The download URL sits inside a platform branch, which livecheck cannot read,
+  # so it follows the stable URL's releases instead.
   livecheck do
-    url :url
+    url :stable
     strategy :github_latest
   end
 
