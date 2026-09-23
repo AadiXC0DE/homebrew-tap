@@ -9,7 +9,7 @@
 class Rune < Formula
   desc "Native coding agent harness"
   homepage "https://github.com/AadiXC0DE/Rune"
-  version "0.1.0"
+  version "0.1.1"
   license "Apache-2.0"
 
   # The download URL sits inside a platform branch, which livecheck cannot read,
@@ -22,10 +22,10 @@ class Rune < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/AadiXC0DE/Rune/releases/download/v#{version}/rune-#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "c2af31f3b124d91b1d087ba8c258abb945925d849aaae4680acaa5d8db590ee6"
+      sha256 "343aa760c2519e43cd22b1047295afabcd5a4c802159f3211e5299ac13b73136"
     else
       url "https://github.com/AadiXC0DE/Rune/releases/download/v#{version}/rune-#{version}-x86_64-apple-darwin.tar.gz"
-      sha256 "095cbd801ce67079704690c3057d30919911eca7a15368dc6f3d35722449498c"
+      sha256 "d52c333c3c489a409ca5abac404774fabc73571628040c04f62c7cfc24662802"
     end
   end
 
@@ -37,7 +37,9 @@ class Rune < Formula
     <<~EOS
       Rune has no default provider. Connect one before the first turn:
 
-        rune connect anthropic
+        rune connect
+
+      That lists the providers and asks for what the one you choose needs.
 
       Then check what this machine supports:
 
