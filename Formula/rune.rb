@@ -9,7 +9,7 @@
 class Rune < Formula
   desc "Native coding agent harness"
   homepage "https://github.com/AadiXC0DE/Rune"
-  version "0.1.15"
+  version "0.1.16"
   license "Apache-2.0"
 
   # The download URL sits inside a platform branch, which livecheck cannot read,
@@ -22,10 +22,10 @@ class Rune < Formula
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/AadiXC0DE/Rune/releases/download/v#{version}/rune-#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "26c7c7b039b22c71ed1047b5364f94d04710b2dc01924cf498f7b9a8e16494ff"
+      sha256 "779b7d152358acaf4077982d216a75ba580953ba4d831a9300c2600caf644de2"
     else
       url "https://github.com/AadiXC0DE/Rune/releases/download/v#{version}/rune-#{version}-x86_64-apple-darwin.tar.gz"
-      sha256 "c0b96141e8cbace5b2cc4b9e1c67cf12f0873b65627d7a1d6523c9373347ae9f"
+      sha256 "47a4e8ed9e2d64807a1945742a0874c5e92f0e57fddafb940ba5cd4c3cb25c9f"
     end
   end
 
