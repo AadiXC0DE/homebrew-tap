@@ -4,13 +4,13 @@ Desktop apps published by AadiXC0DE.
 
 ## Install
 
-[Sift](https://usesift.xyz) — a keyboard-first Gmail client for macOS:
+[Sift](https://usesift.xyz), a keyboard-first Gmail client for macOS:
 
 ```sh
 brew install --cask aadixc0de/tap/sift
 ```
 
-[Graphe](https://github.com/AadiXC0DE/graphe) — an agentic coding platform:
+[Graphe](https://github.com/AadiXC0DE/graphe), an agentic coding platform for the Mac:
 
 ```sh
 brew install --cask aadixc0de/tap/graphe
@@ -18,17 +18,12 @@ brew install --cask aadixc0de/tap/graphe
 
 ## First launch
 
-Homebrew verifies the download checksum and installs the app. It does not
-notarize an app or guarantee that macOS will skip Gatekeeper. Current Homebrew
-applies quarantine to cask installs, so unnotarized apps may show a warning.
-For Sift, follow the [first-launch guide](https://usesift.xyz/download#first-launch),
-including the fallback when Open Anyway is missing.
+Homebrew checks the download against its checksum and installs the app. It does not notarize anything for you, so macOS may still show a Gatekeeper warning. Sift has a [first-launch guide](https://usesift.xyz/download#first-launch) that covers the fallback for when the Open Anyway button is not there.
 
-## Maintaining releases
+## Keeping releases current
 
-Keep each cask in sync with its app repository's `Casks` directory. Pin the
-published version and exact verified artifact SHA-256; do not skip checksums.
+Each cask tracks the `Casks` directory in its own app repository. Pin the published version and the exact SHA-256 of the artifact. Skipping the checksum is how you end up shipping a different binary than the one you built.
 
-## Licence
+## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
