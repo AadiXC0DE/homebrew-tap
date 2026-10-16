@@ -1,0 +1,87 @@
+name: bump rune
+
+# The formula pins a version and one checksum per architecture, so a Rune release
+# does not reach anyone running `brew install` until those three values move.
+# This job moves them, using this repository's own token, so no personal access
+# token is involved and a release cannot be published while people silently keep
+# installing the previous one.
+
+on:
+  schedule:
+    # Daily, and offset from the hour so it does not queue with the round-hour rush.
+    - cron: "23 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Move the formula to the latest release
+        run: |
+          set -euo pipefail
+          formula="Formula/rune.rb"
+
+          release=$(curl -fsSL -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/AadiXC0DE/Rune/releases/latest)
+          tag=$(printf '%s' "$release" | python3 -c 'import json,sys; print(json.load(sys.stdin)["tag_name"])')
+          version="${tag#v}"
+          test -n "$version"
+
+          current=$(sed -n 's/^  version "\(.*\)"$/\1/p' "$formula")
+          if [ "$version" = "$current" ]; then
+            echo "formula already names $version"
+            exit 0
+          fi
+
+          # The checksum sidecar is published beside each archive, and is what the
+          # formula's own sha256 line is meant to carry.
+          sidecar() {
+            curl -fsSL "https://github.com/AadiXC0DE/Rune/releases/download/${tag}/rune-${version}-$1.tar.gz.sha256" \
+              | awk '{print $1}'
+          }
+          arm=$(sidecar aarch64-apple-darwin)
+          intel=$(sidecar x86_64-apple-darwin)
+          for digest in "$arm" "$intel"; do
+            printf '%s' "$digest" | grep -Eq '^[0-9a-f]{64}$' || { echo "bad checksum: $digest" >&2; exit 1; }
+          done
+
+          python3 - "$formula" "$version" "$arm" "$intel" <<'PY'
+          import re, sys
+          path, version, arm, intel = sys.argv[1:5]
+          text = open(path, encoding="utf-8").read()
+          text, count = re.subn(r'^  version ".*"$', f'  version "{version}"', text, count=1, flags=re.M)
+          assert count == 1, "no version line to move"
+          # The arm64 entry comes first in the platform branch, so the digests are
+          # replaced in the order they appear rather than by guessing at context.
+          parts = text.split('sha256 "')
+          assert len(parts) == 3, f"expected two checksums, found {len(parts) - 1}"
+          for index, digest in ((1, arm), (2, intel)):
+              rest = parts[index].split('"', 1)[1]
+              parts[index] = digest + '"' + rest
+          open(path, "w", encoding="utf-8").write('sha256 "'.join(parts))
+          print(f"formula moved to {version}")
+          PY
+
+      - name: Check the formula still parses
+        run: |
+          set -euo pipefail
+          ruby -c Formula/rune.rb
+
+      - name: Commit and push when the formula moved
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "nothing to commit"
+            exit 0
+          fi
+          version=$(sed -n 's/^  version "\(.*\)"$/\1/p' Formula/rune.rb)
+          git config user.name "Rune release bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula/rune.rb
+          git commit -m "rune ${version}"
+          git push
